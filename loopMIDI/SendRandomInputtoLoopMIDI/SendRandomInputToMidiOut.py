@@ -1,9 +1,17 @@
+"""
+
+This script show how you can send some note with velocity to a midi port in with python    
+The code is by default set to loopMIDI port.
+https://www.tobias-erichsen.de/software/loopmidi.html
+    
+"""
+
 # pip install mido python-rtmidi
 import mido
 import time
 import random
 # Define the MIDI port name (make sure it matches your loopMIDI port name)
-port_name = "test2"  # Replace with the exact name of your loopMIDI port
+port_name = "loopMIDI Port"  # Replace with the exact name of your loopMIDI port
 
 # Define the MIDI note parameters
 note_number = 60+random.randrange(-20,20)  # MIDI note number for Middle C
