@@ -43,7 +43,7 @@ try:
             # Send a Note On message
             note_on = mido.Message('note_on', note=note_number, velocity=velocity)
             port.send(note_on)
-            print(f"Sent Note On: {note_number}")
+            print(f"Sent Note On: {note_number} bytes: {note_on.bytes()}")
 
             # Delay before sending Note Off
             time.sleep(0.1)
@@ -51,7 +51,7 @@ try:
             # Send a Note Off message
             note_off = mido.Message('note_off', note=note_number, velocity=velocity)
             port.send(note_off)
-            print(f"Sent Note Off: {note_number}")
+            print(f"Sent Note Off: {note_number} bytes: {note_off.bytes()}")
 
             # Wait for the specified delay before the next loop
             time.sleep(delay)

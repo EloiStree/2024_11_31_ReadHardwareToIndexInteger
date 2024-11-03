@@ -6,7 +6,7 @@ import time
 from collections import deque
 import socket
 
-com= "COM3"
+com= "COM14"
 ipv4="127.0.0.1"
 port =3615
 
@@ -14,8 +14,9 @@ port =3615
 ser = serial.Serial(com, 9600, timeout=1)
 
 
-bool_use_print =True
+bool_display_all_received=True
 bool_use_print =False
+bool_use_print =True
 
 bool_use_playerIndex =True
 int_player_index=452
@@ -43,6 +44,8 @@ try:
     while True:
         # Read one byte at a time
         byte = ser.read(1)
+        if bool_display_all_received:
+            print(byte)
         array_8_bytes.append(byte)
         if(len(array_8_bytes)==8):
             # if the four first bytes are zero
