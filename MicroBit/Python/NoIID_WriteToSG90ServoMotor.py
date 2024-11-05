@@ -13,7 +13,8 @@
 
 
 # Documentation of SG90 Servo Motor:
-# - https://github.com/EloiStree/HelloInput/issues/139
+# Info https://github.com/EloiStree/HelloInput/issues/139
+# Video: https://github.com/EloiStree/HelloEloiTeachingVideo/issues/96
 
 
 from microbit import *

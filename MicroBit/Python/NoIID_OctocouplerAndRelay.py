@@ -13,8 +13,8 @@
 
 
 # Documentation of Octocoupler 817 Module:
-# - https://github.com/EloiStree/HelloInput/issues/142
-
+# Info https://github.com/EloiStree/HelloInput/issues/142
+# Video: https://github.com/EloiStree/HelloEloiTeachingVideo/issues/97
 
 from microbit import *
 
@@ -27,7 +27,6 @@ display.off()
 # Hello you
 print("Hello 817 Module Octocoupler (v)(;,,;)(v)")
 # Buy: https://amzn.to/4eiL4pI
-
 
 # List of all the pin tha can be use for write
 # Check and verified
@@ -86,17 +85,16 @@ int_state_previous=0
 int_state =-1
 
 
-#WARNING: using sleep and sleep_ms did not worked for (maybe because of round)
-# So I used sleep_us
-
-# Example of how you can send of step of the frequence to use
-# Note: LEFT vs RIGHT https://www.youtube.com/watch?v=cPepfbNBcKg
+# ACTIVATE THE PIN VOLT as ON (or inverse)
 def turn_on_pin(pin, inverse):
     pin.write_digital(inverse==True if 0 else 1)
-    
+
+
+# ACTIVATE THE PIN VOLT as OFF (or inverse)
 def turn_off_pin(pin, inverse):
     pin.write_digital(inverse==True if 1 else 0)
-    
+
+# GIVE THE INDEX IN THE PIN ARRAY TO ENABLE VOLT ON THE PIN
 def turn_on_index(index):
     if index<0:
         return
@@ -104,7 +102,9 @@ def turn_on_index(index):
         return
         
     turn_on_pin(output_pins[index],output_pins_inverse[index])
-    
+
+
+# GIVE THE INDEX IN THE PIN ARRAY TO DISABLE VOLT ON THE PIN
 def turn_off_index(index):
     if index<0:
         return
@@ -113,12 +113,28 @@ def turn_off_index(index):
     turn_off_pin(output_pins[index],output_pins_inverse[index])
 
 
+# ALLOWS TO ENABLE THE NEW AND DISABLE THE OLD PIN VOLTAGE
 def turn_new_on_old_off(new, old):
     turn_on_index(new)
     turn_off_index(old)
     
 
 
+#SAMPLE TO SHOW HOW TO ENABLE ALL
+condition_for_all_on=True
+if condition_for_all_on==True:
+    for i in range(len(output_pins)-1):
+        turn_on_index(i)
+    sleep(1)
+
+
+#SAMPLE TO SHOW HOW TO DISABLE ALL
+condition_for_all_off=True
+if condition_for_all_off==True:
+    for i in range(len(output_pins)-1):
+        turn_off_index(i)
+    sleep(1)
+        
 
 while True:
     sleep(0.1)
@@ -132,11 +148,12 @@ while True:
         int_state=0
     if int_state<0:
         int_state=0
-    # NOTE: WE COULD HAVE 16 'Relay' BUT WE HAVE ONLY 14 PIN TO WRITE
+    # NOTE: WE COULD HAVE 16 'Relay' BUT WE HAVE ONLY 15 MAX PIN TO WRITE
     if int_state>=len(output_pins):
         int_state=len(output_pins)-1
 
-    # ONLY CALL A TURN IF THE VALUE CHANGED
+    
+    # ONLY CALL IF THE VALUE CHANGED
     if int_state!=int_state_previous:
         print("Previous: "+str(int_state_previous)+" New: "+ str(int_state))
         turn_new_on_old_off(int_state, int_state_previous)
