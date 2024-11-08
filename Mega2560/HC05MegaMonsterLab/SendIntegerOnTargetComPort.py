@@ -7,9 +7,9 @@ import threading
 
 # Will be the open port
 integer_type= 1300000000
-wait_between_send = 0.01
-wait_pressing =0.01
-wait_for_receive = 0.01
+wait_between_send = 0.1
+wait_pressing =0.1
+wait_for_receive = 0.1
 
 #string_device_id = "5583834323335131E111"
 string_device_id="98DA5001A5A3"
@@ -58,13 +58,13 @@ def send_integer(open_port: serial.Serial,integer:int):
     open_port.write(byte_array_integer_little)
     debug_byte_255 =f"{byte_array_integer_little[0]}  {byte_array_integer_little[1]}  {byte_array_integer_little[2]}  {byte_array_integer_little[3]}"
     print(f"Sent: {integer_to_send}|{byte_array_integer_little}|{debug_byte_255}")
-    time.sleep(0.1)
+    #time.sleep(0.1)
 
 def send_zero(open_port: serial.Serial):
     byte_array_integer_little = struct.pack("<I", 0)
     open_port.write(byte_array_integer_little)
     print(f"Sent: 0 0 0 0")
-    time.sleep(0.1)
+    #time.sleep(0.1)
 # def print_received_while_true(open_port):
 #     while open_port.in_waiting > 0:
 #         print(f"R{open_port.in_waiting}: {open_port.read(open_port.in_waiting).decode('utf-8')}")

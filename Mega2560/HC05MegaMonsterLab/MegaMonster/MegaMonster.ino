@@ -58,18 +58,18 @@ int MapRealPinFromWantedPing(int wantedPin){
       case 40: return 45;
       case 41: return 42;
       case 42: return 43;
-      case 43: return 40;
-      case 44: return 41;
-      case 45: return 38;
-      case 46: return 39;
-
+        case 43: return 40;
+        case 44: return 41;
+        case 45: return 38;
+      
+      case 46: return 46;
       case 47: return 47;
       case 48: return 48;
       case 49: return 49;
-      case 50: return 50;
-      case 51: return 51;
-      case 52: return 52;
-      case 53: return 53;
+        case 50: return 50;
+        case 51: return 51;
+        case 52: return 52;
+        case 53: return 53;
   }
   return 23;
 }
@@ -82,36 +82,36 @@ bool MapInverseFromWantedPin(int wantedPin){
       case 24: return true;
       case 25: return true;
       case 26: return true;
-      case 27: return true;
-      case 28: return true;
-      case 29: return true;
-      case 30: return true;
+       case 27: return true;
+       case 28: return true;
+       case 29: return true;
+       case 30: return true;
 
       case 31: return false;
       case 32: return false;
       case 33: return false;
       case 34: return false;
-      case 35: return false;
-      case 36: return false;
-      case 37: return false;
-      case 38: return false;
+       case 35: return false;
+       case 36: return false;
+       case 37: return false;
+       case 38: return false;
       
       case 39: return false;
       case 40: return false;
       case 41: return false;
       case 42: return false;
-      case 43: return false;
-      case 44: return false;
-      case 45: return false;
-      case 46: return false;
+       case 43: return false;
+       case 44: return false;
+       case 45: return false;
       
+      case 46: return true;
       case 47: return true;
       case 48: return true;
       case 49: return true;
-      case 50: return true;
-      case 51: return true;
-      case 52: return true;
-      case 53: return true;
+       case 50: return true;
+       case 51: return true;
+       case 52: return true;
+       case 53: return true;
   }
   return 23;
 }
@@ -140,6 +140,7 @@ void dealWithReceivedInteger(int32_t integerReceived){
           Serial.println("Received Int:"+String(integerReceived));
 
           switch (integerReceived) {
+            
                 case 1300001023: SetRelay(23,false); break;
                 case 1300002023: SetRelay(23,true); break;
                 case 1300001024: SetRelay(24,false); break;
@@ -330,7 +331,8 @@ void loop() {
   if(frame%200==0)
   {
 
-    Serial.println(""+String(frame));
+    if(useDebugPrint) 
+      Serial.println(""+String(frame));
     SendIntegerToSerial1(frame);
     DisplayFullInformationOnPins();
   }
@@ -338,7 +340,11 @@ void loop() {
 
   if(Serial.available())
   {
-    Serial.println("Serial0:"+String(Serial.read()));
+    String read = Serial.readStringUntil('\n');
+    Serial.println("Serial0:"+String(read));
+    int32_t  integer= read.toInt();
+    dealWithReceivedInteger(integer);
+
   }
   if(Serial1.available())
   {
@@ -354,8 +360,13 @@ void loop() {
       dealWithReceivedInteger(integer);
       indexModulo4=0;
     }
+
     if(buffer[0]==0 && buffer[1]==0 &&buffer[2]==0&& buffer[3]==0){
-      Serial.println("Index at Zero");
+    
+      if(useDebugPrint)
+          Serial.println("Index at Zero");
+      indexModulo4=0;
+    
     }
   }
   // DONT TOUCH

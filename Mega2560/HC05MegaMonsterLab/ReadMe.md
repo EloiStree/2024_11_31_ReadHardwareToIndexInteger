@@ -7,4 +7,8 @@ I am using digit from (2-12) as read with audio jack (Red Black).
 
 Outside of the teaching workshop, the aim is to have a bridge to remote control the RC Exost car and provide Drone joysticks at low cost.
 
-As the aim is to teach, Keyboard.h and Mouse.h is added to it.
+
+
+Was aiming to use it also as a keyboard.
+But apparently Mega2560 is not compatible.
+
