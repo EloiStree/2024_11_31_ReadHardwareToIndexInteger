@@ -7,13 +7,22 @@ import threading
 
 # Will be the open port
 integer_type= 1300000000
-wait_between_send = 0.1
-wait_pressing =0.1
-wait_for_receive = 0.1
+wait_between_send = 0.01
+wait_pressing =0.01
+wait_for_receive = 0.01
 
 #string_device_id = "5583834323335131E111"
 string_device_id="98DA5001A5A3"
 
+
+def deal_with_received_integer(integer: int):
+    print(f"Received: {integer}")
+
+
+
+
+
+##-----------------------------------------------------------------------------------  ###
 def list_serial_ports():
     ports = serial.tools.list_ports.comports()
     for port in ports:
@@ -51,6 +60,11 @@ def send_integer(open_port: serial.Serial,integer:int):
     print(f"Sent: {integer_to_send}|{byte_array_integer_little}|{debug_byte_255}")
     time.sleep(0.1)
 
+def send_zero(open_port: serial.Serial):
+    byte_array_integer_little = struct.pack("<I", 0)
+    open_port.write(byte_array_integer_little)
+    print(f"Sent: 0 0 0 0")
+    time.sleep(0.1)
 # def print_received_while_true(open_port):
 #     while open_port.in_waiting > 0:
 #         print(f"R{open_port.in_waiting}: {open_port.read(open_port.in_waiting).decode('utf-8')}")
@@ -59,11 +73,13 @@ def send_integer(open_port: serial.Serial,integer:int):
 def send_integer_press(open_port, integer):
     integer_to_send = integer
     integer_to_send +=1000
+    send_zero(open_port)
     send_integer(open_port,integer_to_send)
     
 def send_integer_release(open_port, integer):
     integer_to_send = integer
     integer_to_send +=2000
+    send_zero(open_port)
     send_integer(open_port,integer_to_send)
 
 def send_integer_to_port( open_port, integer):
@@ -95,13 +111,19 @@ if __name__ == "__main__":
             for _ in range(1,4):
                 send_integer_random_to_port( open_port)
         
-        for i in range(22,53):
+        for i in range(22,54):
             send_integer_to_port(open_port, i)
-            #print_received_while_true(open_port)
-            open_port.write("\n\r".encode('utf-8'))
-            open_port.flush()
+            d=5
             
             
-            t = open_port.read_all()
-            print(f"Received: {t}")
+            b = open_port.read_all()
+            if len(b)>=8 and b[0]==0 and b[1]==0 and b[2]==0 and b[3]==0:
+                integer_received = struct.unpack("<I", b[4:8])[0]
+                deal_with_received_integer(integer_received)
+                
+                
+            
+                
             time.sleep(0.001)
+            
+            
