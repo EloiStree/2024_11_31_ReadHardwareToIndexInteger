@@ -30,6 +30,11 @@ int analogPins[] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, 
 int analogValue0To1024[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 int analogValue0To9[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
+//1899887766
+//1198765432
+//1098765432
+//0900000099
+
 bool useDebugPrint=false;
 
 
@@ -40,19 +45,19 @@ int MapRealPinFromWantedPing(int wantedPin){
       case 24: return 22;
       case 25: return 25;
       case 26: return 24;
-      case 27: return 27;
-      case 28: return 26;
-      case 29: return 29;
-      case 30: return 28;
+       case 27: return 27;
+       case 28: return 26;
+       case 29: return 29;
+       case 30: return 28;
       
       case 31: return 36;
       case 32: return 37;
       case 33: return 34;
       case 34: return 35;
-      case 35: return 32;
-      case 36: return 33;
-      case 37: return 30;
-      case 38: return 31;
+       case 35: return 32;
+       case 36: return 33;
+       case 37: return 30;
+       case 38: return 31;
 
       case 39: return 44;
       case 40: return 45;
@@ -228,8 +233,8 @@ void printOnBothSerial(String text)
 
 
 bool startWithModulo2Pin=true;
-bool startWithLowPin=true;
-bool startWithHighPin=true;
+bool startWithLowPin=false;
+bool startWithHighPin=false;
 void setup() {
 //A
 
@@ -302,7 +307,9 @@ void DisplayFullInformationOnPins(){
 
 }
 
-void SendIntegerToSerial1(uint32_t value){
+//AA DC 
+//0000KKKK
+void SendIntegerToSerial1(int32_t value){
     uint8_t  bytes[4];
     intToBytes(value, bytes);
     for(int i=0; i<4;i++)
@@ -366,7 +373,6 @@ void loop() {
       if(useDebugPrint)
           Serial.println("Index at Zero");
       indexModulo4=0;
-    
     }
   }
   // DONT TOUCH
