@@ -6,20 +6,13 @@ import threading
 
 
 # Will be the open port
-integer_type= 1300000000
+integer_type= 000000000
 wait_between_send = 1
 wait_pressing =1
 wait_for_receive = 1
 
-#string_device_id = "5583834323335131E111"
-# MY MEGA HC05 2560 Eloi
-string_device_id="98DA5001A5A3"
-# ARDUINO HC05 MEGA 2560 Eloi
-string_device_id="98DA5001B650"
+string_device_id="VID:PID=1A86:7523"
 
-#98D371F97B44
-
-bool_send_zero =True
 
 def deal_with_received_integer(integer: int):
     print(f"Received: {integer}")
@@ -79,15 +72,13 @@ def send_zero(open_port: serial.Serial):
 def send_integer_press(open_port, integer):
     integer_to_send = integer
     integer_to_send +=1000
-    if bool_send_zero:
-        send_zero(open_port)
+    send_zero(open_port)
     send_integer(open_port,integer_to_send)
     
 def send_integer_release(open_port, integer):
     integer_to_send = integer
     integer_to_send +=2000
-    if bool_send_zero:
-        send_zero(open_port)
+    send_zero(open_port)
     send_integer(open_port,integer_to_send)
 
 def send_integer_to_port( open_port, integer):
@@ -97,8 +88,6 @@ def send_integer_to_port( open_port, integer):
     time.sleep(wait_between_send)
 
 
-def send_integer_random_to_port( open_port):
-    send_integer_to_port(open_port,random.randrange(22,53))
 
 
 if __name__ == "__main__":
@@ -119,29 +108,17 @@ if __name__ == "__main__":
             for _ in range(1,4):
                 send_integer_random_to_port( open_port)
         
-        for i in range(22,54):
+        for i in range(48,91):
             send_integer_to_port(open_port, i)
-            
+            d=5
             
             
             b = open_port.read_all()
-            if(len(b)>0):
-                print("Received: ",b)
-                print("Size: ",len(b))
-                
+            print(f"BYTES: {b}")
             if len(b)>=8 and b[0]==0 and b[1]==0 and b[2]==0 and b[3]==0:
-                
                 integer_received = struct.unpack("<I", b[4:8])[0]
-                print(f"R Int: {integer_received}")
-                #42  k
-                #43  K
                 deal_with_received_integer(integer_received)
-            
-            if(len(b)%4==0):
-                for i in range(0,len(b),4):
-                    integer_received = struct.unpack("<I", b[i:i+4])[0]
-                    print(f"R Int: {integer_received}")
-                    deal_with_received_integer(integer_received)
+                
                 
             
                 
