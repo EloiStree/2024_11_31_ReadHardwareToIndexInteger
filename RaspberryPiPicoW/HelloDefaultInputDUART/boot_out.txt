@@ -3,6 +3,3 @@ Board ID:raspberry_pi_pico_w
 UID:E6616407E32C5B28
 MAC:28:CD:C1:0A:22:C7
 boot.py output:
-Traceback (most recent call last):
-  File "boot.py", line 55
-SyntaxError: invalid syntax

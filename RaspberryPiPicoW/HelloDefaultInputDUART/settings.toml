@@ -1,0 +1,4 @@
+# setting.toml
+WIFI_SSID = "EloiStreeWifi2G"
+WIFI_PASSWORD="11234566"
+test_variable= "Woo Hoo!"
