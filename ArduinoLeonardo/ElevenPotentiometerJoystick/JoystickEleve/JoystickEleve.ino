@@ -14,7 +14,7 @@ Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID,
                    true,  // Throttle
                    true,  // Accelerator
                    true,  // Brake
-                   true);  // Steering
+                   true);  // Steering                              
 
 // Define button pin numbers
 const int buttonPins[] = {2, 4, 7, 8, 12};
