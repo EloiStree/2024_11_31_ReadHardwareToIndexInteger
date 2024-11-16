@@ -21,7 +21,7 @@ int MAX_VALUE_D4 = (int)(MAX_VALUE * 5.0 / 8.0);
 int MIN_VALUE_D8 = (int)(MAX_VALUE * 7.0 / 16.0);
 int MAX_VALUE_D8 = (int)(MAX_VALUE * 9.0 / 16.0);
 
-int MIDDLE_VALUE = 32767 /2
+int MIDDLE_VALUE = 32767 /2;
 
 float m_axis0 = 0;
 float m_axis1 = 0;
